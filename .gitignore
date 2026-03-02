@@ -1,0 +1,27 @@
+# Rust
+/target
+**/target
+Cargo.lock.bak
+
+# Anchor
+.anchor
+test-ledger
+**/*.so
+
+# Node / TypeScript SDK
+node_modules
+dist
+.npm
+*.tsbuildinfo
+
+# Keys & local validator state (never commit)
+*.json.key
+keypairs/
+ledger/
+
+# Logs & scratch
+*.log
+.DS_Store
+.idea
+.vscode
+tmp/
