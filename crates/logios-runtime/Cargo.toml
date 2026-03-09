@@ -1,0 +1,25 @@
+[package]
+name = "logios-runtime"
+description = "SVM / Sealevel-style execution engine for Logios: accounts, compute-budget metering, programs, transaction executor."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+logios-primitives.workspace = true
+thiserror.workspace = true
+serde = { workspace = true, optional = true }
+
+[features]
+default = ["serde"]
+serde = ["dep:serde", "logios-primitives/serde"]
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
