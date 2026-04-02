@@ -1,0 +1,24 @@
+[package]
+name = "hermes-faucet"
+version = "0.1.0"
+description = "Testnet $HERMES SPL faucet with per-wallet cooldown (Hermes Labs / Logios)"
+edition = "2021"
+license = "Apache-2.0"
+authors = ["Hermes Labs <dev@hermes-labs.xyz>"]
+repository = "https://github.com/hermeslabssol/logios"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "hermes_faucet"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+
+[dependencies]
+anchor-lang = "0.30.1"
+anchor-spl = "0.30.1"
