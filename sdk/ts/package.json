@@ -1,0 +1,56 @@
+{
+  "name": "@logios/sdk",
+  "version": "0.5.0",
+  "description": "TypeScript client for the Logios read API — the Solana-native chain that writes itself. Slots, blocks, decision receipts, the autonomous agent's status, and plain-English slot narration.",
+  "license": "Apache-2.0",
+  "author": "Hermes Labs <dev@hermes-labs.xyz>",
+  "homepage": "https://hermes-labs.xyz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hermeslabssol/logios.git",
+    "directory": "sdk/ts"
+  },
+  "keywords": [
+    "logios",
+    "hermes-labs",
+    "solana",
+    "svm",
+    "sealevel",
+    "slot",
+    "blockchain",
+    "sdk"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "dependencies": {
+    "cross-fetch": "^4.0.0"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}
