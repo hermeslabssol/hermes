@@ -1,0 +1,32 @@
+[package]
+name = "logios-client"
+description = "Async Rust client for the Logios read API — the Solana-native chain that writes itself. Slots, blocks, decision receipts, agent status, and plain-English slot narration."
+version = "0.5.0"
+edition = "2021"
+rust-version = "1.75"
+license = "Apache-2.0"
+authors = ["Hermes Labs <dev@hermes-labs.xyz>"]
+repository = "https://github.com/hermeslabssol/logios"
+homepage = "https://hermes-labs.xyz"
+documentation = "https://docs.rs/logios-client"
+keywords = ["logios", "solana", "svm", "sealevel", "client"]
+categories = ["api-bindings", "cryptography::cryptocurrencies"]
+readme = "README.md"
+
+# Standalone crate — intentionally NOT a member of the protocol-core workspace
+# at the repo root, so it builds and publishes on its own.
+[package.metadata]
+workspace-exempt = true
+
+[dependencies]
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
