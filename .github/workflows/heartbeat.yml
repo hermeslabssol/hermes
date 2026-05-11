@@ -1,0 +1,37 @@
+name: Heartbeat
+
+# A small scheduled maintenance commit so the devnet ops metadata stays current.
+# Runs every ~2-3 days. Commits as github-actions[bot]; no-ops if nothing changed.
+
+on:
+  schedule:
+    - cron: "37 6 */2 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refresh devnet heartbeat stamp
+        run: |
+          mkdir -p .ops
+          {
+            echo "last_heartbeat=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "run=${GITHUB_RUN_NUMBER}"
+            echo "sha=${GITHUB_SHA}"
+          } > .ops/heartbeat.txt
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .ops/heartbeat.txt
+            git commit -m "chore(ops): refresh devnet heartbeat stamp"
+            git push
+          else
+            echo "No changes; skipping."
+          fi

@@ -1,0 +1,26 @@
+# Code owners for Logios.
+#
+# Review from the listed owner is required for any PR touching a matched path
+# (see CONTRIBUTING.md). Last matching pattern wins.
+#
+# Team:
+#   hermeslabssol  — lead, runtime + consensus
+#   Niko Vasilakis — runtime / SVM executor
+#   Demetra Soto   — SDK / developer experience
+#   Aris Lefebvre  — consensus / Anchor programs
+
+# Default owner for everything.
+*                           @hermeslabssol
+
+# Consensus is safety-critical: lead must review.
+/crates/logios-consensus/   @hermeslabssol
+
+# On-chain Anchor programs.
+/programs/                  @hermeslabssol
+
+# SDKs (TS + Rust).
+/sdk/                       @hermeslabssol
+
+# Specs and docs.
+/spec/                      @hermeslabssol
+/docs/                      @hermeslabssol
