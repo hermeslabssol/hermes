@@ -423,3 +423,5 @@ interface ExplanationWire {
   txns: number;
   narration: string;
 }
+
+// updated 2026-05-25
