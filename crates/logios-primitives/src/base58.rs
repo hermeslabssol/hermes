@@ -175,3 +175,5 @@ mod tests {
         assert!(matches!(err, Base58Error::InvalidCharacter(_, _)));
     }
 }
+
+// reviewed 2026-05-25
