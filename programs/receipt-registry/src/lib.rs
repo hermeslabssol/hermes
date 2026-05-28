@@ -265,3 +265,5 @@ pub enum RegistryError {
     #[msg("Receipt counter overflowed.")]
     CounterOverflow,
 }
+
+// reviewed 2026-05-28
