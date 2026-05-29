@@ -106,3 +106,5 @@ The per-slot compute budget and recent utilization.
 - The on-chain anchor for each receipt lives in the `receipt-registry` Anchor
   program; the API serves the same data from the node's ledger for convenience.
 - Field names are stable within a `/v1` major; additive changes only.
+
+<!-- maintained 2026-05-29 -->
