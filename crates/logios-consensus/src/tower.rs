@@ -205,3 +205,5 @@ mod tests {
         assert!(!t.would_double_sign(Slot::new(50)));
     }
 }
+
+// reviewed 2026-06-04
