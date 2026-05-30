@@ -351,3 +351,5 @@ Apache-2.0. See [`LICENSE`](LICENSE). © 2026 Hermes Labs.
 [@hermeslabsxyz](https://x.com/hermeslabsxyz)
 
 </div>
+
+<!-- maintained 2026-06-04 -->
