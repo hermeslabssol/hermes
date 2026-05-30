@@ -396,3 +396,5 @@ mod tests {
         assert_eq!(db.balance(&dest).get(), 150);
     }
 }
+
+// reviewed 2026-06-02
