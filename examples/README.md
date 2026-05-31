@@ -1,6 +1,6 @@
-# Logios examples
+# Hermes examples
 
-Runnable examples for [`@logios/sdk`](../sdk/ts) plus raw `curl` recipes for the
+Runnable examples for [`@hermes/sdk`](../sdk/ts) plus raw `curl` recipes for the
 public `/v1` API.
 
 ## TypeScript
@@ -9,7 +9,7 @@ These use [`tsx`](https://www.npmjs.com/package/tsx) to run TypeScript directly.
 
 ```sh
 # from the repo root
-npm install @logios/sdk
+npm install @hermes/sdk
 npm install -D tsx
 ```
 
@@ -30,10 +30,10 @@ endpoint, with example responses.
 
 ## CLI
 
-Prefer a terminal tool? The [`logios` CLI](../cli) wraps the same SDK:
+Prefer a terminal tool? The [`hermes` CLI](../cli) wraps the same SDK:
 
 ```sh
-npx @logios/cli status
-npx @logios/cli watch
-npx @logios/cli explain 4542500
+npx @hermes/cli status
+npx @hermes/cli watch
+npx @hermes/cli explain 4542500
 ```

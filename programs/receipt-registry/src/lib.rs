@@ -1,9 +1,9 @@
 //! # receipt-registry
 //!
-//! On-chain registry for **Logios decision receipts** — Hermes Labs.
+//! On-chain registry for **Hermes decision receipts** — Hermes Labs.
 //!
-//! Logios is "the chain that writes itself": for every slot, the autonomous
-//! Logios agent authors the block and signs a *decision receipt* describing
+//! Hermes is "the chain that writes itself": for every slot, the autonomous
+//! Hermes agent authors the block and signs a *decision receipt* describing
 //! what it chose to include and why. This program anchors those receipts on
 //! Solana so that anyone can audit the agent's per-slot decisions against the
 //! ledger.
@@ -11,7 +11,7 @@
 //! ## Account model
 //!
 //! - [`RegistryConfig`] — a singleton PDA (`seeds = [b"config"]`) that names the
-//!   Logios agent authority, tracks the highest committed slot, and counts the
+//!   Hermes agent authority, tracks the highest committed slot, and counts the
 //!   total receipts anchored so far.
 //! - [`Receipt`] — one PDA per slot (`seeds = [b"receipt", slot.to_le_bytes()]`)
 //!   holding the slot number, the slot blockhash bytes, the number of
@@ -20,7 +20,7 @@
 //!
 //! ## Authority & invariants
 //!
-//! Only the registry authority (the Logios agent keypair) may commit receipts.
+//! Only the registry authority (the Hermes agent keypair) may commit receipts.
 //! Slots must be strictly monotonic — a receipt for slot `N` can only follow a
 //! receipt for some slot `< N` — and the reported compute units may never exceed
 //! the per-slot Sealevel budget cap of 48,000,000 CU.
@@ -29,7 +29,7 @@ use anchor_lang::prelude::*;
 
 declare_id!("ATNjhU9qwjziAcnS5tcrPPFcrszB9RevcDs9MJkf6MH2");
 
-/// Hard ceiling on the compute units a single Logios-authored slot may report.
+/// Hard ceiling on the compute units a single Hermes-authored slot may report.
 /// Mirrors the Sealevel per-block compute budget so a receipt can never claim a
 /// block did more work than the runtime would have permitted.
 pub const MAX_BLOCK_COMPUTE_UNITS: u64 = 48_000_000;
@@ -44,7 +44,7 @@ pub const NARRATION_HASH_LEN: usize = 32;
 pub mod receipt_registry {
     use super::*;
 
-    /// Initialize the singleton [`RegistryConfig`] and bind it to the Logios
+    /// Initialize the singleton [`RegistryConfig`] and bind it to the Hermes
     /// agent `authority`. The payer funds rent; the authority is the only key
     /// that may subsequently commit receipts.
     ///
@@ -58,7 +58,7 @@ pub mod receipt_registry {
         config.bump = ctx.bumps.config;
 
         msg!(
-            "Logios registry initialized · authority={} · config={}",
+            "Hermes registry initialized · authority={} · config={}",
             authority,
             config.key()
         );
@@ -90,7 +90,7 @@ pub mod receipt_registry {
     ) -> Result<()> {
         let config = &mut ctx.accounts.config;
 
-        // Only the bound Logios agent authority may write receipts.
+        // Only the bound Hermes agent authority may write receipts.
         require_keys_eq!(
             ctx.accounts.authority.key(),
             config.authority,
@@ -132,7 +132,7 @@ pub mod receipt_registry {
         });
 
         msg!(
-            "Logios receipt committed · slot={} · txns={} · cu={} · total={}",
+            "Hermes receipt committed · slot={} · txns={} · cu={} · total={}",
             slot,
             txns,
             compute_units,
@@ -185,7 +185,7 @@ pub struct CommitReceipt<'info> {
     )]
     pub receipt: Account<'info, Receipt>,
 
-    /// The Logios agent authority. Must match `config.authority`; also funds the
+    /// The Hermes agent authority. Must match `config.authority`; also funds the
     /// per-slot receipt rent.
     #[account(mut)]
     pub authority: Signer<'info>,
@@ -196,7 +196,7 @@ pub struct CommitReceipt<'info> {
 /// Singleton registry configuration — one per program deployment.
 #[account]
 pub struct RegistryConfig {
-    /// The Logios agent pubkey permitted to commit receipts.
+    /// The Hermes agent pubkey permitted to commit receipts.
     pub authority: Pubkey,
     /// Highest slot anchored so far. New receipts must exceed this.
     pub current_slot: u64,
@@ -256,7 +256,7 @@ pub struct ReceiptCommitted {
 /// Program error space for the receipt registry.
 #[error_code]
 pub enum RegistryError {
-    #[msg("Signer is not the registry authority (the Logios agent).")]
+    #[msg("Signer is not the registry authority (the Hermes agent).")]
     Unauthorized,
     #[msg("Slot is not strictly greater than the current registry slot.")]
     NonMonotonicSlot,

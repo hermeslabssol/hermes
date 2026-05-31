@@ -1,25 +1,25 @@
 /**
- * `@logios/sdk` — TypeScript client for the Logios read API.
+ * `@hermes/sdk` — TypeScript client for the Hermes read API.
  *
- * Logios is the Solana-native chain that writes itself. This package gives you
+ * Hermes is the Solana-native chain that writes itself. This package gives you
  * typed access to its public `/v1` endpoints: stats, blocks, decision receipts,
  * the autonomous agent's status, logs, updates, the roadmap, and plain-English
  * slot narration.
  *
  * @example
  * ```ts
- * import { LogiosClient } from "@logios/sdk";
+ * import { HermesClient } from "@hermes/sdk";
  *
- * const logios = new LogiosClient();
- * const stats = await logios.stats();
+ * const hermes = new HermesClient();
+ * const stats = await hermes.stats();
  * console.log(`height ${stats.blockHeight} · ${stats.tps} tps`);
  * ```
  *
  * @packageDocumentation
  */
 
-export { LogiosClient, LogiosApiError } from "./client.js";
-export type { LogiosClientOptions, ListOptions } from "./client.js";
+export { HermesClient, HermesApiError } from "./client.js";
+export type { HermesClientOptions, ListOptions } from "./client.js";
 
 export type {
   Base58String,

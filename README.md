@@ -1,6 +1,6 @@
 <div align="center">
 
-# Logios
+# Hermes
 
 ### the chain that writes itself
 
@@ -11,7 +11,7 @@ signs a decision receipt for every choice it makes — live, in public, on Solan
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![build](https://img.shields.io/badge/build-passing-brightgreen.svg)](.github/workflows/ci.yml)
-[![stars](https://img.shields.io/badge/stars-71-yellow.svg)](https://github.com/hermeslabssol/logios/stargazers)
+[![stars](https://img.shields.io/badge/stars-71-yellow.svg)](https://github.com/hermeslabssol/hermes/stargazers)
 [![contributors](https://img.shields.io/badge/contributors-4-blue.svg)](#maintainers)
 [![Solana](https://img.shields.io/badge/Solana-SVM%20%2F%20Sealevel-9945FF.svg)](https://solana.com)
 [![Rust](https://img.shields.io/badge/Rust-1.79-orange.svg)](rust-toolchain.toml)
@@ -29,7 +29,7 @@ signs a decision receipt for every choice it makes — live, in public, on Solan
 ---
 
 > [!WARNING]
-> **Experimental. Devnet only.** Logios is a research system. Consensus,
+> **Experimental. Devnet only.** Hermes is a research system. Consensus,
 > slashing, and the runtime are under active development and have not been
 > audited end to end. The autonomous leader runs unattended on devnet. The
 > $HERMES SPL token carries no value and confers no rights. Do not point
@@ -37,10 +37,10 @@ signs a decision receipt for every choice it makes — live, in public, on Solan
 
 ---
 
-## Why Logios
+## Why Hermes
 
-Most chains are written by people and run by machines. Logios inverts the
-second half. A single autonomous agent — Logios — holds the leader slot on
+Most chains are written by people and run by machines. Hermes inverts the
+second half. A single autonomous agent — Hermes — holds the leader slot on
 devnet. Each slot, it proposes a block, writes the accounts, builds and
 executes the programs under a fixed compute budget, seals the slot, and signs
 a **decision receipt** recording what it did and why.
@@ -49,7 +49,7 @@ The receipt is the point. Every autonomous choice is attributable, ordered,
 and verifiable from the ledger alone. You do not have to trust a description of
 what the agent "intends" to do. You read the signed record of what it did.
 
-Logios is **Solana-native** end to end. It runs the SVM (Sealevel) runtime,
+Hermes is **Solana-native** end to end. It runs the SVM (Sealevel) runtime,
 addresses state through accounts owned by programs, meters work in compute
 units against a per-slot budget, prices priority in lamports, and identifies
 everything — pubkeys, blockhashes, signatures — in base58. There is no second
@@ -68,33 +68,33 @@ What is genuinely different here:
 
 ## Architecture
 
-Logios is a small stack of focused crates. Data flows up from primitives to the
+Hermes is a small stack of focused crates. Data flows up from primitives to the
 public surface; control flows down from the agent into the runtime each slot.
 
 ```
                          ┌───────────────────────────────┐
-                         │            Logios              │
+                         │            Hermes              │
                          │      autonomous AI leader      │
                          │  propose · build · seal · sign │
                          └───────────────┬───────────────┘
                                          │ slot plan
                                          ▼
         ┌─────────────────────────────────────────────────────────┐
-        │  logios-runtime                                           │
+        │  hermes-runtime                                           │
         │  SVM / Sealevel executor · accounts · programs           │
         │  compute-budget metering  (cap 48,000,000 CU / slot)     │
         └───────────────┬─────────────────────────────────────────┘
                         │ executed batch + CU total
                         ▼
         ┌─────────────────────────────────────────────────────────┐
-        │  logios-consensus                                        │
+        │  hermes-consensus                                        │
         │  single-leader slot production · Tower-BFT votes (WIP)   │
         │  slashing + jail on equivocation / duplicate slots       │
         └───────────────┬─────────────────────────────────────────┘
                         │ sealed slot
                         ▼
         ┌─────────────────────────────────────────────────────────┐
-        │  logios-ledger                                           │
+        │  hermes-ledger                                           │
         │  append-only log · one signed decision receipt per slot │
         └───────────────┬─────────────────────────────────────────┘
                         │
@@ -110,11 +110,11 @@ public surface; control flows down from the agent into the runtime each slot.
    ▼                                       ▼
 ┌──────────────────┐            ┌────────────────────┐
 │  sdk/ts          │            │  sdk/rust + cli    │
-│  @logios/sdk     │            │  logios-client     │
+│  @hermes/sdk     │            │  hermes-client     │
 └──────────────────┘            └────────────────────┘
 ```
 
-Everything below `logios-runtime` is built on `logios-primitives`, the
+Everything below `hermes-runtime` is built on `hermes-primitives`, the
 dependency-light vocabulary crate that defines base58 pubkeys, hashes,
 signatures, and the slot / epoch / lamport / compute-unit units.
 
@@ -151,8 +151,8 @@ TypeScript SDK.
 
 ```bash
 # 1. Clone
-git clone https://github.com/hermeslabssol/logios
-cd logios
+git clone https://github.com/hermeslabssol/hermes
+cd hermes
 
 # 2. Build the Rust workspace (primitives, runtime, consensus, ledger, sdk, cli)
 cargo build
@@ -186,23 +186,23 @@ curl https://hermes-labs.xyz/v1/receipt/5Hd9...e3Qa
 Or with the CLI:
 
 ```bash
-cargo run -p logios-cli -- slot latest
-cargo run -p logios-cli -- receipt get 5Hd9...e3Qa
+cargo run -p hermes-cli -- slot latest
+cargo run -p hermes-cli -- receipt get 5Hd9...e3Qa
 ```
 
 ## The Stack
 
 | Component | Path | What it does |
 | --- | --- | --- |
-| `logios-primitives` | `crates/logios-primitives` | Base58 pubkeys, hashes, Ed25519 signatures; slot / epoch / lamport / compute-unit units and constants. |
-| `logios-runtime` | `crates/logios-runtime` | SVM / Sealevel executor: accounts, programs, transaction batches, per-slot compute-budget metering. |
-| `logios-consensus` | `crates/logios-consensus` | Single autonomous leader, Tower-BFT vote tracking (WIP), slashing and jail engine. |
-| `logios-ledger` | `crates/logios-ledger` | Append-only log of one signed decision receipt per sealed slot. |
+| `hermes-primitives` | `crates/hermes-primitives` | Base58 pubkeys, hashes, Ed25519 signatures; slot / epoch / lamport / compute-unit units and constants. |
+| `hermes-runtime` | `crates/hermes-runtime` | SVM / Sealevel executor: accounts, programs, transaction batches, per-slot compute-budget metering. |
+| `hermes-consensus` | `crates/hermes-consensus` | Single autonomous leader, Tower-BFT vote tracking (WIP), slashing and jail engine. |
+| `hermes-ledger` | `crates/hermes-ledger` | Append-only log of one signed decision receipt per sealed slot. |
 | `receipt-registry` | `programs/receipt-registry` | Anchor program anchoring each receipt's base58 signature on-chain. |
 | `hermes-faucet` | `programs/hermes-faucet` | Anchor program: rate-limited devnet $HERMES drip, one claim per pubkey per epoch. |
-| `@logios/sdk` | `sdk/ts` | TypeScript client for `/v1`: slot streaming, receipt lookup, typed responses. |
-| `logios-client` | `sdk/rust` | Rust client over `/v1` and the on-chain programs. |
-| `logios-cli` | `cli` | Operator and explorer CLI: query slots, fetch receipts, inspect the ledger. |
+| `@hermes/sdk` | `sdk/ts` | TypeScript client for `/v1`: slot streaming, receipt lookup, typed responses. |
+| `hermes-client` | `sdk/rust` | Rust client over `/v1` and the on-chain programs. |
+| `hermes-cli` | `cli` | Operator and explorer CLI: query slots, fetch receipts, inspect the ledger. |
 | examples | `examples` | Runnable samples for both SDKs. |
 
 ## Decision Receipts
@@ -219,7 +219,7 @@ Each receipt contains:
 - a base58 **Ed25519 signature** over the canonical sealed-slot bytes.
 
 Receipts are deterministic: every node reconstructs the same canonical bytes
-and verifies the same signature. They are appended to `logios-ledger` and
+and verifies the same signature. They are appended to `hermes-ledger` and
 anchored on-chain by the `receipt-registry` Anchor program, so the signature
 of any slot is independently checkable from chain state. Read one by signature
 at `GET /v1/receipt/{sig}`.
@@ -246,7 +246,7 @@ Full reference: [`docs/api.md`](docs/api.md).
 
 ## Security model
 
-Logios trusts one component on devnet: the autonomous leader's signing key.
+Hermes trusts one component on devnet: the autonomous leader's signing key.
 Everything else is verified.
 
 - **Authorship is signed.** No slot is valid without a receipt signature that
@@ -263,9 +263,9 @@ Everything else is verified.
 
 | Component | Status |
 | --- | --- |
-| Slashing & jail (`logios-consensus`) | Audited (internal) |
-| Decision receipts (`logios-ledger`, `receipt-registry`) | Audited (internal) |
-| Runtime / compute budget (`logios-runtime`) | WIP — not yet audited |
+| Slashing & jail (`hermes-consensus`) | Audited (internal) |
+| Decision receipts (`hermes-ledger`, `receipt-registry`) | Audited (internal) |
+| Runtime / compute budget (`hermes-runtime`) | WIP — not yet audited |
 | Tower-BFT vote tracking | WIP |
 | ZK receipt proofs | Planned |
 
@@ -287,7 +287,7 @@ Design lands as an RFC before it lands as code. The full index lives in
 
 ## Roadmap
 
-- [x] `logios-primitives`: base58 types, slot / lamport / compute-unit units
+- [x] `hermes-primitives`: base58 types, slot / lamport / compute-unit units
 - [x] SVM / Sealevel executor with per-slot compute-budget metering
 - [x] Append-only ledger of signed decision receipts
 - [x] `receipt-registry` Anchor program anchoring receipts on-chain
@@ -316,7 +316,7 @@ stars
         v0.1 v0.2 v0.3 v0.4 v0.5 …
 ```
 
-[View on star-history.com →](https://star-history.com/#hermeslabssol/logios)
+[View on star-history.com →](https://star-history.com/#hermeslabssol/hermes)
 
 ## Maintainers
 
@@ -346,7 +346,7 @@ Apache-2.0. See [`LICENSE`](LICENSE). © 2026 Hermes Labs.
 
 <div align="center">
 
-**Logios** · a Hermes Labs project ·
+**Hermes** · a Hermes Labs project ·
 [hermes-labs.xyz](https://hermes-labs.xyz) ·
 [@hermeslabsxyz](https://x.com/hermeslabsxyz)
 

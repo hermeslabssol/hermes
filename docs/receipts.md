@@ -37,7 +37,7 @@ slot and check the signature against `leader`.
 
 ## Where receipts live
 
-- **Ledger** — `logios-ledger` appends one receipt per sealed slot, append-only,
+- **Ledger** — `hermes-ledger` appends one receipt per sealed slot, append-only,
   addressable by slot height and by base58 signature.
 - **On-chain** — the `receipt-registry` Anchor program anchors each receipt's
   base58 signature on-chain, so a receipt's existence and ordering are verifiable
@@ -51,7 +51,7 @@ curl "https://hermes-labs.xyz/v1/receipts?slot=12345&limit=20"
 ```
 
 ```bash
-cargo run -p logios-cli -- receipt get <base58-signature>
+cargo run -p hermes-cli -- receipt get <base58-signature>
 ```
 
 ## Why this matters

@@ -1,7 +1,7 @@
 # RFC-0005: Priority-fee market
 
 - **Status:** Accepted
-- **Implemented in:** `crates/logios-consensus`, `crates/logios-runtime`
+- **Implemented in:** `crates/hermes-consensus`, `crates/hermes-runtime`
 - **Author:** Niko Vasilakis
 
 ## Summary

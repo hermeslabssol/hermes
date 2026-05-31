@@ -1,6 +1,6 @@
 # Security Policy
 
-Logios is **experimental, devnet-stage software**. It has not been audited
+Hermes is **experimental, devnet-stage software**. It has not been audited
 end to end. Run it against value you are willing to lose.
 
 ## Supported Versions
@@ -30,12 +30,12 @@ in-scope reports within 14 days. We will credit reporters in the
 
 In scope, in priority order:
 
-- **Consensus** (`crates/logios-consensus`) — leader selection, slot
+- **Consensus** (`crates/hermes-consensus`) — leader selection, slot
   finalization, Tower-BFT vote tracking, any path to two valid slots at one
   height.
-- **Slashing & jail** (`crates/logios-consensus`) — false-positive slashing,
+- **Slashing & jail** (`crates/hermes-consensus`) — false-positive slashing,
   evasion of a provable equivocation, jail-escape.
-- **Runtime** (`crates/logios-runtime`) — compute-budget bypass, account
+- **Runtime** (`crates/hermes-runtime`) — compute-budget bypass, account
   ownership violations, executor state corruption.
 - **Programs** (`programs/receipt-registry`, `programs/hermes-faucet`) —
   missing signer/owner checks, receipt forgery, faucet drain.

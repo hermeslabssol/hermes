@@ -1,11 +1,11 @@
 [package]
 name = "hermes-faucet"
 version = "0.1.0"
-description = "Testnet $HERMES SPL faucet with per-wallet cooldown (Hermes Labs / Logios)"
+description = "Testnet $HERMES SPL faucet with per-wallet cooldown (Hermes Labs / Hermes)"
 edition = "2021"
 license = "Apache-2.0"
 authors = ["Hermes Labs <dev@hermes-labs.xyz>"]
-repository = "https://github.com/hermeslabssol/logios"
+repository = "https://github.com/hermeslabssol/hermes"
 
 [lib]
 crate-type = ["cdylib", "lib"]

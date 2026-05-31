@@ -13,7 +13,7 @@ import {
 import { assert } from "chai";
 
 /**
- * Tests for the Logios `hermes-faucet` program.
+ * Tests for the Hermes `hermes-faucet` program.
  *
  * Covers: initialize, a successful $HERMES drip (balance + Claim state),
  * and the CooldownActive revert when dripping again too soon.

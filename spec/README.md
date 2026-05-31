@@ -1,6 +1,6 @@
-# Logios RFCs
+# Hermes RFCs
 
-Design decisions for Logios land here before they land in code. An RFC captures
+Design decisions for Hermes land here before they land in code. An RFC captures
 the problem, the chosen design, the trade-offs we accepted, and what is still
 open. Code that implements an RFC references it; code that changes a shipped
 design amends the RFC.

@@ -1,10 +1,10 @@
-# Logios — the chain that writes itself.
+# Hermes — the chain that writes itself.
 #
 # Solana-native. The SVM (Sealevel) runtime executes programs against accounts,
 # metered in compute units against a per-slot compute budget. Every slot is
-# authored by an autonomous AI leader (Logios) that signs a decision receipt.
+# authored by an autonomous AI leader (Hermes) that signs a decision receipt.
 #
-# Brand: Hermes Labs · org: hermeslabssol/logios
+# Brand: Hermes Labs · org: hermeslabssol/hermes
 #
 # This is a Cargo workspace. `crates/` holds the protocol core, `programs/`
 # the Anchor on-chain programs, `sdk/rust` the client library, and `cli/` the
@@ -24,7 +24,7 @@ edition = "2021"
 rust-version = "1.79"
 license = "Apache-2.0"
 authors = ["Hermes Labs"]
-repository = "https://github.com/hermeslabssol/logios"
+repository = "https://github.com/hermeslabssol/hermes"
 homepage = "https://hermes-labs.xyz"
 keywords = ["solana", "svm", "sealevel", "consensus", "autonomous"]
 categories = ["cryptography::cryptocurrencies"]
@@ -47,10 +47,10 @@ tokio = { version = "1.38", features = ["full"] }
 reqwest = { version = "0.12", features = ["json", "rustls-tls"] }
 
 # Internal crates, referenced by path so the workspace builds standalone.
-logios-primitives = { path = "crates/logios-primitives", version = "0.5.0" }
-logios-runtime = { path = "crates/logios-runtime", version = "0.5.0" }
-logios-consensus = { path = "crates/logios-consensus", version = "0.5.0" }
-logios-ledger = { path = "crates/logios-ledger", version = "0.5.0" }
+hermes-primitives = { path = "crates/hermes-primitives", version = "0.5.0" }
+hermes-runtime = { path = "crates/hermes-runtime", version = "0.5.0" }
+hermes-consensus = { path = "crates/hermes-consensus", version = "0.5.0" }
+hermes-ledger = { path = "crates/hermes-ledger", version = "0.5.0" }
 
 [profile.release]
 opt-level = 3

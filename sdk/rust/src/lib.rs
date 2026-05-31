@@ -1,9 +1,9 @@
-//! # logios-client
+//! # hermes-client
 //!
-//! Async Rust client for the [Logios](https://hermes-labs.xyz) read API — the
+//! Async Rust client for the [Hermes](https://hermes-labs.xyz) read API — the
 //! Solana-native chain that writes itself.
 //!
-//! Logios runs an SVM (Sealevel) runtime where every slot is authored by an
+//! Hermes runs an SVM (Sealevel) runtime where every slot is authored by an
 //! autonomous agent that emits a signed decision receipt. This crate gives you
 //! typed, `async` access to its public `/v1` endpoints.
 //!
@@ -13,16 +13,16 @@
 //! ## Example
 //!
 //! ```no_run
-//! use logios_client::LogiosClient;
+//! use hermes_client::HermesClient;
 //!
-//! # async fn run() -> Result<(), logios_client::Error> {
-//! let logios = LogiosClient::new();
+//! # async fn run() -> Result<(), hermes_client::Error> {
+//! let hermes = HermesClient::new();
 //!
-//! let stats = logios.stats().await?;
+//! let stats = hermes.stats().await?;
 //! println!("height {} · {} tps", stats.block_height, stats.tps);
 //!
-//! let block = logios.latest_block().await?;
-//! let ex = logios.explain(Some(block.slot)).await?;
+//! let block = hermes.latest_block().await?;
+//! let ex = hermes.explain(Some(block.slot)).await?;
 //! println!("#{}: {}", ex.slot, ex.narration);
 //! # Ok(())
 //! # }
@@ -41,14 +41,14 @@ pub const DEFAULT_BASE_URL: &str = "https://hermes-labs.xyz";
 /// the SVM. Carries no runtime guarantee — documents intent only.
 pub type Base58String = String;
 
-/// A slot number — the monotonic index of a sealed block on Logios.
+/// A slot number — the monotonic index of a sealed block on Hermes.
 pub type Slot = u64;
 
 // ---------------------------------------------------------------------------
 // Errors
 // ---------------------------------------------------------------------------
 
-/// Errors returned by [`LogiosClient`].
+/// Errors returned by [`HermesClient`].
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     /// Transport-level failure (DNS, connection, timeout, TLS).
@@ -105,7 +105,7 @@ pub struct Stats {
     pub commits: u64,
     /// Recent transactions-per-second throughput.
     pub tps: f64,
-    /// Validator set. Logios is single-leader, so this is the literal `"self"`.
+    /// Validator set. Hermes is single-leader, so this is the literal `"self"`.
     pub validators: String,
     /// When the genesis slot was sealed (RFC-3339).
     pub genesis_at: String,
@@ -226,23 +226,23 @@ struct ExplainArgs {
 // Client
 // ---------------------------------------------------------------------------
 
-/// Async client for the Logios public read API (`/v1`).
+/// Async client for the Hermes public read API (`/v1`).
 ///
 /// Cheap to clone — the inner [`reqwest::Client`] is reference-counted and
 /// pools connections, so prefer cloning over constructing new clients.
 #[derive(Debug, Clone)]
-pub struct LogiosClient {
+pub struct HermesClient {
     base_url: String,
     http: reqwest::Client,
 }
 
-impl Default for LogiosClient {
+impl Default for HermesClient {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl LogiosClient {
+impl HermesClient {
     /// Create a client pointed at the default origin ([`DEFAULT_BASE_URL`]).
     pub fn new() -> Self {
         Self::with_base_url(DEFAULT_BASE_URL)
@@ -251,7 +251,7 @@ impl LogiosClient {
     /// Create a client pointed at a custom origin (no trailing `/v1`).
     pub fn with_base_url(base_url: impl Into<String>) -> Self {
         let http = reqwest::Client::builder()
-            .user_agent(concat!("logios-client-rs/", env!("CARGO_PKG_VERSION")))
+            .user_agent(concat!("hermes-client-rs/", env!("CARGO_PKG_VERSION")))
             .timeout(Duration::from_secs(15))
             .build()
             .expect("reqwest client builds with default config");
@@ -389,7 +389,7 @@ mod tests {
 
     #[test]
     fn base_url_is_normalized() {
-        let c = LogiosClient::with_base_url("https://example.test///");
+        let c = HermesClient::with_base_url("https://example.test///");
         assert_eq!(c.base_url, "https://example.test");
     }
 

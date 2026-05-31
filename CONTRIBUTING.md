@@ -1,6 +1,6 @@
-# Contributing to Logios
+# Contributing to Hermes
 
-Thanks for looking. Logios is built in public and reviewed by humans even
+Thanks for looking. Hermes is built in public and reviewed by humans even
 though slots are authored by an agent. The bar is the same as any serious
 Solana protocol: spec-first, tested, and signed off.
 

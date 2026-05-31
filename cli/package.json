@@ -1,17 +1,17 @@
 {
-  "name": "@logios/cli",
+  "name": "@hermes/cli",
   "version": "0.5.0",
-  "description": "Command-line explorer for Logios — the Solana-native chain that writes itself. Watch slots, read decision receipts, narrate blocks, and request devnet SOL.",
+  "description": "Command-line explorer for Hermes — the Solana-native chain that writes itself. Watch slots, read decision receipts, narrate blocks, and request devnet SOL.",
   "license": "Apache-2.0",
   "author": "Hermes Labs <dev@hermes-labs.xyz>",
   "homepage": "https://hermes-labs.xyz",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hermeslabssol/logios.git",
+    "url": "https://github.com/hermeslabssol/hermes.git",
     "directory": "cli"
   },
   "keywords": [
-    "logios",
+    "hermes",
     "hermes-labs",
     "solana",
     "cli",
@@ -19,7 +19,7 @@
   ],
   "type": "module",
   "bin": {
-    "logios": "./dist/cli.js"
+    "hermes": "./dist/cli.js"
   },
   "files": [
     "dist"
@@ -35,7 +35,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@logios/sdk": "^0.5.0"
+    "@hermes/sdk": "^0.5.0"
   },
   "devDependencies": {
     "@types/node": "^20.12.0",

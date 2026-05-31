@@ -1,5 +1,5 @@
 /**
- * {@link LogiosClient} — a typed client for the Logios read API.
+ * {@link HermesClient} — a typed client for the Hermes read API.
  *
  * @packageDocumentation
  */
@@ -19,13 +19,13 @@ import type {
 } from "./types.js";
 
 /**
- * Error thrown when the Logios API returns a non-2xx response, an unparseable
+ * Error thrown when the Hermes API returns a non-2xx response, an unparseable
  * body, or a network failure occurs.
  *
  * Inspect {@link status} / {@link body} for the HTTP detail, or
  * {@link cause} for an underlying transport error.
  */
-export class LogiosApiError extends Error {
+export class HermesApiError extends Error {
   /** HTTP status code, or `0` for transport-level failures. */
   public readonly status: number;
   /** Request path that failed, e.g. `"/v1/stats"`. */
@@ -40,18 +40,18 @@ export class LogiosApiError extends Error {
     opts: { status: number; path: string; body?: string; cause?: unknown },
   ) {
     super(message);
-    this.name = "LogiosApiError";
+    this.name = "HermesApiError";
     this.status = opts.status;
     this.path = opts.path;
     this.body = opts.body;
     this.cause = opts.cause;
     // Restore prototype chain for instanceof across transpile targets.
-    Object.setPrototypeOf(this, LogiosApiError.prototype);
+    Object.setPrototypeOf(this, HermesApiError.prototype);
   }
 }
 
-/** Options accepted by the {@link LogiosClient} constructor. */
-export interface LogiosClientOptions {
+/** Options accepted by the {@link HermesClient} constructor. */
+export interface HermesClientOptions {
   /**
    * Base origin of the API, without the `/v1` suffix.
    * @defaultValue `"https://hermes-labs.xyz"`
@@ -84,7 +84,7 @@ const DEFAULT_BASE_URL = "https://hermes-labs.xyz";
 const DEFAULT_TIMEOUT_MS = 15_000;
 
 /**
- * Typed client for the Logios public read API (`/v1`).
+ * Typed client for the Hermes public read API (`/v1`).
  *
  * Every method maps to one endpoint, returning the normalized SDK types from
  * {@link ./types}. The underlying API is backed by PostgREST, so list endpoints
@@ -92,15 +92,15 @@ const DEFAULT_TIMEOUT_MS = 15_000;
  *
  * @example
  * ```ts
- * import { LogiosClient } from "@logios/sdk";
+ * import { HermesClient } from "@hermes/sdk";
  *
- * const logios = new LogiosClient();
- * const { slot } = await logios.latestBlock();
- * const { narration } = await logios.explain(slot);
+ * const hermes = new HermesClient();
+ * const { slot } = await hermes.latestBlock();
+ * const { narration } = await hermes.explain(slot);
  * console.log(`#${slot}: ${narration}`);
  * ```
  */
-export class LogiosClient {
+export class HermesClient {
   /** Resolved base origin, no trailing slash. */
   public readonly baseUrl: string;
   private readonly timeoutMs: number;
@@ -110,8 +110,8 @@ export class LogiosClient {
   /**
    * @param options Configuration, or a bare base-URL string for convenience.
    */
-  constructor(options: LogiosClientOptions | string = {}) {
-    const opts: LogiosClientOptions =
+  constructor(options: HermesClientOptions | string = {}) {
+    const opts: HermesClientOptions =
       typeof options === "string" ? { baseUrl: options } : options;
 
     this.baseUrl = (opts.baseUrl ?? DEFAULT_BASE_URL).replace(/\/+$/, "");
@@ -119,7 +119,7 @@ export class LogiosClient {
     this.fetchImpl = opts.fetch ?? fetch;
     this.headers = {
       accept: "application/json",
-      "user-agent": "logios-sdk-ts/0.5.0",
+      "user-agent": "hermes-sdk-ts/0.5.0",
       ...opts.headers,
     };
   }
@@ -134,7 +134,7 @@ export class LogiosClient {
    */
   async stats(): Promise<Stats> {
     const [row] = await this.getList<StatsWire>("/v1/stats");
-    if (!row) throw new LogiosApiError("stats endpoint returned no rows", { status: 200, path: "/v1/stats" });
+    if (!row) throw new HermesApiError("stats endpoint returned no rows", { status: 200, path: "/v1/stats" });
     return {
       blockHeight: row.block_height,
       commits: row.commits,
@@ -150,7 +150,7 @@ export class LogiosClient {
    */
   async latestBlock(): Promise<Block> {
     const [row] = await this.getList<BlockWire>("/v1/block/latest");
-    if (!row) throw new LogiosApiError("no latest block available", { status: 200, path: "/v1/block/latest" });
+    if (!row) throw new HermesApiError("no latest block available", { status: 200, path: "/v1/block/latest" });
     return mapBlock(row);
   }
 
@@ -188,7 +188,7 @@ export class LogiosClient {
    */
   async agent(): Promise<AgentStatus> {
     const [row] = await this.getList<AgentWire>("/v1/agent");
-    if (!row) throw new LogiosApiError("agent endpoint returned no rows", { status: 200, path: "/v1/agent" });
+    if (!row) throw new HermesApiError("agent endpoint returned no rows", { status: 200, path: "/v1/agent" });
     return {
       status: row.status,
       task: row.task,
@@ -288,7 +288,7 @@ export class LogiosClient {
     return Array.isArray(data) ? data : [data];
   }
 
-  /** Perform a request, parse JSON, and translate failures into {@link LogiosApiError}. */
+  /** Perform a request, parse JSON, and translate failures into {@link HermesApiError}. */
   private async request<T>(path: string, init: RequestInit): Promise<T> {
     const url = `${this.baseUrl}${path}`;
     const controller =
@@ -308,7 +308,7 @@ export class LogiosClient {
         signal: controller?.signal,
       });
     } catch (cause) {
-      throw new LogiosApiError(`request to ${path} failed: ${stringifyError(cause)}`, {
+      throw new HermesApiError(`request to ${path} failed: ${stringifyError(cause)}`, {
         status: 0,
         path,
         cause,
@@ -320,7 +320,7 @@ export class LogiosClient {
     const text = await res.text().catch(() => "");
 
     if (!res.ok) {
-      throw new LogiosApiError(`${res.status} ${res.statusText} for ${path}`, {
+      throw new HermesApiError(`${res.status} ${res.statusText} for ${path}`, {
         status: res.status,
         path,
         body: text,
@@ -334,7 +334,7 @@ export class LogiosClient {
     try {
       return JSON.parse(text) as T;
     } catch (cause) {
-      throw new LogiosApiError(`failed to parse JSON from ${path}`, {
+      throw new HermesApiError(`failed to parse JSON from ${path}`, {
         status: res.status,
         path,
         body: text,

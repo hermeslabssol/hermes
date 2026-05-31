@@ -1,6 +1,6 @@
 # Quickstart
 
-Get Logios building locally and read live slots from the public API.
+Get Hermes building locally and read live slots from the public API.
 
 ## Prerequisites
 
@@ -12,8 +12,8 @@ Get Logios building locally and read live slots from the public API.
 ## Build the workspace
 
 ```bash
-git clone https://github.com/hermeslabssol/logios
-cd logios
+git clone https://github.com/hermeslabssol/hermes
+cd hermes
 
 cargo build          # primitives, runtime, consensus, ledger, sdk/rust, cli
 cargo test --all     # core test suite
@@ -50,9 +50,9 @@ curl https://hermes-labs.xyz/v1/receipt/<base58-signature>
 ## Use the CLI
 
 ```bash
-cargo run -p logios-cli -- slot latest
-cargo run -p logios-cli -- receipt get <base58-signature>
-cargo run -p logios-cli -- leader status
+cargo run -p hermes-cli -- slot latest
+cargo run -p hermes-cli -- receipt get <base58-signature>
+cargo run -p hermes-cli -- leader status
 ```
 
 ## Next steps

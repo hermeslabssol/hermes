@@ -1,11 +1,11 @@
 [package]
 name = "receipt-registry"
 version = "0.1.0"
-description = "Logios on-chain registry of per-slot agent decision receipts (Hermes Labs)"
+description = "Hermes on-chain registry of per-slot agent decision receipts (Hermes Labs)"
 edition = "2021"
 license = "Apache-2.0"
 authors = ["Hermes Labs <dev@hermes-labs.xyz>"]
-repository = "https://github.com/hermeslabssol/logios"
+repository = "https://github.com/hermeslabssol/hermes"
 
 [lib]
 crate-type = ["cdylib", "lib"]

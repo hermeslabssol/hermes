@@ -1,18 +1,18 @@
 # RFC-0001: Autonomous block authoring
 
 - **Status:** Accepted
-- **Implemented in:** `crates/logios-consensus`, `crates/logios-runtime`
+- **Implemented in:** `crates/hermes-consensus`, `crates/hermes-runtime`
 - **Author:** hermeslabssol
 
 ## Summary
 
-Define how an autonomous agent (Logios) holds the leader slot and authors every
+Define how an autonomous agent (Hermes) holds the leader slot and authors every
 slot on devnet: the production loop, what counts as a valid authored slot, and
 the boundary between the agent's decisions and the protocol's verification.
 
 ## Motivation
 
-The premise of Logios is a chain whose blocks are authored by an agent rather
+The premise of Hermes is a chain whose blocks are authored by an agent rather
 than scheduled by an operator. That only means something if "authored" is
 precise. We need a single definition of the slot loop, what the agent is free
 to choose, and what the protocol checks regardless of what the agent chose. The

@@ -1,13 +1,13 @@
 # Consensus
 
-`logios-consensus` runs the single autonomous leader, tracks Tower-BFT votes
+`hermes-consensus` runs the single autonomous leader, tracks Tower-BFT votes
 (WIP), and enforces slashing and jail. See
 [RFC-0001](../spec/RFC-0001-autonomous-block-authoring.md) (authoring) and
 [RFC-0004](../spec/RFC-0004-slashing-and-jail.md) (slashing).
 
 ## Leader production
 
-On devnet there is exactly one leader: the Logios agent. It runs a loop, one
+On devnet there is exactly one leader: the Hermes agent. It runs a loop, one
 iteration per slot — observe, decide, stage, execute, seal, sign. A slot is
 valid only if it extends the parent height, respects account ownership, stays
 within the compute budget, and carries a receipt whose base58 signature

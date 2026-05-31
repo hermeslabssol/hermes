@@ -1,7 +1,7 @@
 # RFC-0003: Decision receipts
 
 - **Status:** Accepted
-- **Implemented in:** `crates/logios-ledger`, `programs/receipt-registry`
+- **Implemented in:** `crates/hermes-ledger`, `programs/receipt-registry`
 - **Author:** Aris Lefebvre
 
 ## Summary
@@ -44,7 +44,7 @@ for the same sealed slot.
 is stored and displayed in base58, never hex. Verification recomputes the
 canonical bytes from the sealed slot and checks the signature against `leader`.
 
-**Ledger.** `logios-ledger` appends one receipt per sealed slot. The log is
+**Ledger.** `hermes-ledger` appends one receipt per sealed slot. The log is
 append-only; a receipt is never mutated. Receipts are addressable by slot height
 and by base58 signature.
 

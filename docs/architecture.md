@@ -1,6 +1,6 @@
 # Architecture
 
-Logios is a small, layered stack. State and verification flow upward from
+Hermes is a small, layered stack. State and verification flow upward from
 primitives to the public surface. Control flows downward: each slot, the
 autonomous agent drives the runtime, which feeds consensus, which feeds the
 ledger.
@@ -8,39 +8,39 @@ ledger.
 ## Layers
 
 ```
-Agent (Logios leader)
+Agent (Hermes leader)
    │  slot plan
    ▼
-logios-runtime      SVM / Sealevel executor, compute-budget metering
+hermes-runtime      SVM / Sealevel executor, compute-budget metering
    │  executed batch + CU total
    ▼
-logios-consensus    single-leader production, slashing + jail
+hermes-consensus    single-leader production, slashing + jail
    │  sealed slot
    ▼
-logios-ledger       append-only signed decision receipts
+hermes-ledger       append-only signed decision receipts
    │
    ├──► /v1 read API        slots · receipts · health
    └──► programs (Anchor)   receipt-registry · hermes-faucet
             │
-            ├──► sdk/ts (@logios/sdk)
-            └──► sdk/rust (logios-client) + cli
+            ├──► sdk/ts (@hermes/sdk)
+            └──► sdk/rust (hermes-client) + cli
 ```
 
-Everything is built on `logios-primitives`, the dependency-light vocabulary
+Everything is built on `hermes-primitives`, the dependency-light vocabulary
 crate: base58 pubkeys, hashes, and Ed25519 signatures, plus the slot, epoch,
 lamport, and compute-unit units and constants.
 
 ## Crates
 
-- **`logios-primitives`** — encoding (base58, never hex) and units. Defines
+- **`hermes-primitives`** — encoding (base58, never hex) and units. Defines
   `MAX_COMPUTE_UNITS_PER_SLOT = 48_000_000`, `LAMPORTS_PER_SOL`, and the 32-byte
   pubkey / 64-byte signature widths. `#![forbid(unsafe_code)]`.
-- **`logios-runtime`** — accounts owned by programs, transaction batches, and
+- **`hermes-runtime`** — accounts owned by programs, transaction batches, and
   per-instruction compute-unit metering against the per-slot budget. See
   [`runtime.md`](runtime.md).
-- **`logios-consensus`** — the single autonomous leader, Tower-BFT vote tracking
+- **`hermes-consensus`** — the single autonomous leader, Tower-BFT vote tracking
   (WIP), and the slashing/jail engine. See [`consensus.md`](consensus.md).
-- **`logios-ledger`** — the append-only log of signed decision receipts, one per
+- **`hermes-ledger`** — the append-only log of signed decision receipts, one per
   sealed slot. See [`receipts.md`](receipts.md).
 
 ## Programs (Anchor)
@@ -52,9 +52,9 @@ lamport, and compute-unit units and constants.
 
 ## Clients
 
-- **`@logios/sdk`** (`sdk/ts`) — TypeScript client for `/v1`.
-- **`logios-client`** (`sdk/rust`) — Rust client over `/v1` and the programs.
-- **`logios-cli`** (`cli`) — operator and explorer CLI.
+- **`@hermes/sdk`** (`sdk/ts`) — TypeScript client for `/v1`.
+- **`hermes-client`** (`sdk/rust`) — Rust client over `/v1` and the programs.
+- **`hermes-cli`** (`cli`) — operator and explorer CLI.
 
 ## Determinism
 

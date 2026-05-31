@@ -1,7 +1,7 @@
 /**
- * Type definitions for the Logios read API.
+ * Type definitions for the Hermes read API.
  *
- * Logios is a Solana-native chain (SVM / Sealevel runtime) where every slot is
+ * Hermes is a Solana-native chain (SVM / Sealevel runtime) where every slot is
  * authored by an autonomous agent. The vocabulary here is Solana's: base58
  * pubkeys/hashes/signatures, slots, lamports, compute units.
  *
@@ -32,7 +32,7 @@ export type Signature = Base58String;
 export type Blockhash = Base58String;
 
 /**
- * A slot number — the monotonic index of a sealed block on Logios.
+ * A slot number — the monotonic index of a sealed block on Hermes.
  *
  * On the wire the API names this field `number`; the SDK surfaces it as `slot`
  * to match Solana terminology while keeping {@link Block.blockHeight} for the
@@ -60,7 +60,7 @@ export interface Stats {
   /** Recent transactions-per-second throughput. */
   tps: number;
   /**
-   * Validator set. Logios is single-leader: the autonomous agent validates its
+   * Validator set. Hermes is single-leader: the autonomous agent validates its
    * own slots, so this is the literal string `"self"`.
    */
   validators: string;
@@ -69,7 +69,7 @@ export interface Stats {
 }
 
 /**
- * A sealed block (slot) on Logios.
+ * A sealed block (slot) on Hermes.
  *
  * Mirrors entries from `GET /v1/block/latest` and `GET /v1/blocks`. The wire
  * shape uses `number`/`hash`; the SDK normalizes to Solana-flavoured names.

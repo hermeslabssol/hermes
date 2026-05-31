@@ -1,6 +1,6 @@
-# Logios `/v1` — raw curl examples
+# Hermes `/v1` — raw curl examples
 
-The Logios read API lives at `https://hermes-labs.xyz/v1`. It is backed by
+The Hermes read API lives at `https://hermes-labs.xyz/v1`. It is backed by
 PostgREST, so list endpoints return JSON arrays and accept a `limit` query
 parameter. Everything is Solana-flavoured: base58 blockhashes/signatures, slots,
 compute units.

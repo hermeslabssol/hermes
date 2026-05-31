@@ -1,17 +1,17 @@
 {
-  "name": "@logios/sdk",
+  "name": "@hermes/sdk",
   "version": "0.5.0",
-  "description": "TypeScript client for the Logios read API — the Solana-native chain that writes itself. Slots, blocks, decision receipts, the autonomous agent's status, and plain-English slot narration.",
+  "description": "TypeScript client for the Hermes read API — the Solana-native chain that writes itself. Slots, blocks, decision receipts, the autonomous agent's status, and plain-English slot narration.",
   "license": "Apache-2.0",
   "author": "Hermes Labs <dev@hermes-labs.xyz>",
   "homepage": "https://hermes-labs.xyz",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hermeslabssol/logios.git",
+    "url": "https://github.com/hermeslabssol/hermes.git",
     "directory": "sdk/ts"
   },
   "keywords": [
-    "logios",
+    "hermes",
     "hermes-labs",
     "solana",
     "svm",

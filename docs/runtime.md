@@ -1,6 +1,6 @@
 # Runtime
 
-`logios-runtime` is the SVM / Sealevel-style execution engine. It models state
+`hermes-runtime` is the SVM / Sealevel-style execution engine. It models state
 as accounts, runs programs over transaction batches, and meters every
 instruction in compute units against a per-slot budget. Full design:
 [RFC-0002](../spec/RFC-0002-svm-execution-and-compute-budget.md).
@@ -20,7 +20,7 @@ and never reach the executor.
 ## Compute budget
 
 Compute units are accumulated per instruction, per transaction, and per batch.
-The per-slot ceiling lives in `logios-primitives`:
+The per-slot ceiling lives in `hermes-primitives`:
 
 ```rust
 pub const MAX_COMPUTE_UNITS_PER_SLOT: u64 = 48_000_000;

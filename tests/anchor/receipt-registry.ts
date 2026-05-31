@@ -6,7 +6,7 @@ import { createHash } from "crypto";
 import { assert } from "chai";
 
 /**
- * Tests for the Logios `receipt-registry` program.
+ * Tests for the Hermes `receipt-registry` program.
  *
  * Covers: initialize, committing a per-slot decision receipt (state + event),
  * and the Unauthorized / NonMonotonicSlot revert paths.
@@ -18,7 +18,7 @@ describe("receipt-registry", () => {
   const program = anchor.workspace
     .ReceiptRegistry as Program<ReceiptRegistry>;
 
-  // The Logios agent authority that is allowed to commit receipts.
+  // The Hermes agent authority that is allowed to commit receipts.
   const agent = Keypair.generate();
 
   // PDA: config = [b"config"]
@@ -47,7 +47,7 @@ describe("receipt-registry", () => {
     await provider.connection.confirmTransaction(sig, "confirmed");
   });
 
-  it("initializes the registry bound to the Logios agent", async () => {
+  it("initializes the registry bound to the Hermes agent", async () => {
     await program.methods
       .initialize(agent.publicKey)
       .accounts({
@@ -69,7 +69,7 @@ describe("receipt-registry", () => {
     const txns = 1280;
     const computeUnits = new BN(12_500_000);
     const narrationHash = sha256(
-      "Logios authored slot 100: prioritized 1280 txns, deferred 3 high-CU CPIs."
+      "Hermes authored slot 100: prioritized 1280 txns, deferred 3 high-CU CPIs."
     );
 
     let captured: any = null;

@@ -1,10 +1,10 @@
 # Changelog
 
-All notable changes to Logios are documented here. The format follows
+All notable changes to Hermes are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-Logios is pre-1.0. Minor versions may carry breaking changes to the protocol,
+Hermes is pre-1.0. Minor versions may carry breaking changes to the protocol,
 the `/v1` API, and the SDKs.
 
 ## [Unreleased]
@@ -22,7 +22,7 @@ the `/v1` API, and the SDKs.
   one claim per pubkey per epoch.
 - Priority-fee market: the leader now orders the per-slot transaction batch by
   lamport priority fee under the 48,000,000 CU budget (RFC-0005).
-- `sdk/ts` (`@logios/sdk`) `getReceipt` / `streamSlots` helpers over `/v1`.
+- `sdk/ts` (`@hermes/sdk`) `getReceipt` / `streamSlots` helpers over `/v1`.
 
 ### Changed
 - Decision receipts now embed the sealed-slot compute-unit total and the
@@ -39,7 +39,7 @@ Demetra Soto (TS SDK)._
 ## [0.4.0] - 2026-05-10
 
 ### Added
-- `crates/logios-consensus` slashing engine: detect equivocation and
+- `crates/hermes-consensus` slashing engine: detect equivocation and
   duplicate slot production, apply stake penalty, jail the offending leader
   for a fixed epoch count (RFC-0004).
 - `programs/receipt-registry` Anchor program: on-chain anchor for the base58
@@ -54,7 +54,7 @@ _Credits: Aris Lefebvre (slashing, registry), hermeslabssol (consensus core)._
 ## [0.3.0] - 2026-04-12
 
 ### Added
-- `crates/logios-ledger`: append-only log of one signed decision receipt per
+- `crates/hermes-ledger`: append-only log of one signed decision receipt per
   sealed slot, with base58 signature verification.
 - `/v1` read API: `GET /v1/slot/{n}`, `GET /v1/receipt/{sig}`,
   `GET /v1/health`.
@@ -66,29 +66,29 @@ _Credits: Aris Lefebvre (slashing, registry), hermeslabssol (consensus core)._
 ## [0.2.0] - 2026-03-15
 
 ### Added
-- `crates/logios-runtime`: SVM / Sealevel-style executor with accounts,
+- `crates/hermes-runtime`: SVM / Sealevel-style executor with accounts,
   programs, and per-slot compute-budget metering capped at 48,000,000 CU
   (RFC-0002).
 - Compute-unit accounting per instruction and per transaction batch.
 
 ### Changed
-- `Lamports` and `ComputeUnits` moved into `logios-primitives` as newtypes.
+- `Lamports` and `ComputeUnits` moved into `hermes-primitives` as newtypes.
 
 ## [0.1.0] - 2026-02-20
 
 ### Added
-- `crates/logios-primitives`: base58 pubkeys, blockhashes, and Ed25519
+- `crates/hermes-primitives`: base58 pubkeys, blockhashes, and Ed25519
   signatures; slot, epoch, lamport, and compute-unit units.
 - Single autonomous leader authoring one slot at a time on devnet (RFC-0001).
 - Workspace scaffold, Apache-2.0 license, CI skeleton.
 
 _Credits: hermeslabssol (primitives, leader loop)._
 
-[Unreleased]: https://github.com/hermeslabssol/logios/compare/v0.5.0...HEAD
-[0.5.0]: https://github.com/hermeslabssol/logios/compare/v0.4.0...v0.5.0
-[0.4.0]: https://github.com/hermeslabssol/logios/compare/v0.3.0...v0.4.0
-[0.3.0]: https://github.com/hermeslabssol/logios/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/hermeslabssol/logios/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/hermeslabssol/logios/releases/tag/v0.1.0
+[Unreleased]: https://github.com/hermeslabssol/hermes/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/hermeslabssol/hermes/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/hermeslabssol/hermes/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/hermeslabssol/hermes/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/hermeslabssol/hermes/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/hermeslabssol/hermes/releases/tag/v0.1.0
 
 <!-- maintained 2026-06-06 -->

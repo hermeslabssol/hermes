@@ -1,4 +1,4 @@
-# Anchor workspace for the Logios on-chain programs (Hermes Labs).
+# Anchor workspace for the Hermes on-chain programs (Hermes Labs).
 #
 #   receipt-registry — anchors per-slot agent decision receipts.
 #   hermes-faucet    — testnet $HERMES SPL faucet with per-wallet cooldown.

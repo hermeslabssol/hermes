@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { LogiosApiError, LogiosClient } from "../client.js";
+import { HermesApiError, HermesClient } from "../client.js";
 
 /** Build a fake `fetch` that returns `body` as JSON for any URL. */
 function mockFetch(body: unknown, init: { status?: number; statusText?: string } = {}) {
@@ -16,16 +16,16 @@ function mockFetch(body: unknown, init: { status?: number; statusText?: string }
 }
 
 function clientWith(fetchFn: ReturnType<typeof mockFetch>) {
-  return new LogiosClient({ fetch: fetchFn as unknown as typeof fetch, timeoutMs: 0 });
+  return new HermesClient({ fetch: fetchFn as unknown as typeof fetch, timeoutMs: 0 });
 }
 
 afterEach(() => vi.restoreAllMocks());
 
-describe("LogiosClient construction", () => {
+describe("HermesClient construction", () => {
   it("defaults to the hermes-labs origin and strips trailing slashes", () => {
-    expect(new LogiosClient().baseUrl).toBe("https://hermes-labs.xyz");
-    expect(new LogiosClient("https://example.test/").baseUrl).toBe("https://example.test");
-    expect(new LogiosClient({ baseUrl: "https://x.test//" }).baseUrl).toBe("https://x.test");
+    expect(new HermesClient().baseUrl).toBe("https://hermes-labs.xyz");
+    expect(new HermesClient("https://example.test/").baseUrl).toBe("https://example.test");
+    expect(new HermesClient({ baseUrl: "https://x.test//" }).baseUrl).toBe("https://x.test");
   });
 });
 
@@ -140,10 +140,10 @@ describe("explain()", () => {
 });
 
 describe("error handling", () => {
-  it("throws LogiosApiError on non-2xx with status + body", async () => {
+  it("throws HermesApiError on non-2xx with status + body", async () => {
     const f = mockFetch("upstream exploded", { status: 503, statusText: "Service Unavailable" });
     await expect(clientWith(f).stats()).rejects.toMatchObject({
-      name: "LogiosApiError",
+      name: "HermesApiError",
       status: 503,
       path: "/v1/stats",
       body: "upstream exploded",
@@ -157,13 +157,13 @@ describe("error handling", () => {
     const err = await clientWith(f as unknown as ReturnType<typeof mockFetch>)
       .agent()
       .catch((e) => e);
-    expect(err).toBeInstanceOf(LogiosApiError);
+    expect(err).toBeInstanceOf(HermesApiError);
     expect(err.status).toBe(0);
     expect(err.cause).toBeInstanceOf(Error);
   });
 
   it("throws on unparseable JSON", async () => {
     const f = mockFetch("<html>not json</html>");
-    await expect(clientWith(f).roadmap()).rejects.toBeInstanceOf(LogiosApiError);
+    await expect(clientWith(f).roadmap()).rejects.toBeInstanceOf(HermesApiError);
   });
 });

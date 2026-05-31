@@ -1,0 +1,25 @@
+[package]
+name = "hermes-ledger"
+description = "Append-only ledger of Hermes decision receipts: one signed receipt per sealed slot."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+hermes-primitives.workspace = true
+thiserror.workspace = true
+serde = { workspace = true, optional = true }
+
+[features]
+default = ["serde"]
+serde = ["dep:serde", "hermes-primitives/serde"]
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"

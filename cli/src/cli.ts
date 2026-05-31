@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
- * `logios` — command-line explorer for the Logios chain.
+ * `hermes` — command-line explorer for the Hermes chain.
  *
- * A thin, friendly wrapper over `@logios/sdk`. Read-only against the public
+ * A thin, friendly wrapper over `@hermes/sdk`. Read-only against the public
  * `/v1` API, except `faucet`, which requests devnet SOL from the Solana RPC.
  */
 
-import { LogiosApiError, LogiosClient, type Block } from "@logios/sdk";
+import { HermesApiError, HermesClient, type Block } from "@hermes/sdk";
 
 import { c, colorLevel } from "./colors.js";
 
@@ -39,7 +39,7 @@ async function main(): Promise<void> {
   const flags: GlobalFlags = { baseUrl, json };
 
   const [command, ...rest] = argv.filter((a) => !a.startsWith("-"));
-  const client = new LogiosClient({ baseUrl });
+  const client = new HermesClient({ baseUrl });
 
   switch (command) {
     case "status":
@@ -65,8 +65,8 @@ async function main(): Promise<void> {
 // Commands
 // ---------------------------------------------------------------------------
 
-/** `logios status` — network + agent overview. */
-async function cmdStatus(client: LogiosClient, flags: GlobalFlags): Promise<void> {
+/** `hermes status` — network + agent overview. */
+async function cmdStatus(client: HermesClient, flags: GlobalFlags): Promise<void> {
   const [stats, agent, block] = await Promise.all([
     client.stats(),
     client.agent(),
@@ -75,7 +75,7 @@ async function cmdStatus(client: LogiosClient, flags: GlobalFlags): Promise<void
 
   if (flags.json) return printJson({ stats, agent, latestBlock: block });
 
-  header("Logios — the chain that writes itself");
+  header("Hermes — the chain that writes itself");
   row("slot height", c.bold(String(stats.blockHeight)));
   row("commits", String(stats.commits));
   row("tps", String(stats.tps));
@@ -90,8 +90,8 @@ async function cmdStatus(client: LogiosClient, flags: GlobalFlags): Promise<void
   row("txns / CU", `${block.txns} / ${block.computeUnits.toLocaleString("en-US")}`);
 }
 
-/** `logios slot [n]` — one block (latest if `n` omitted) + its narration. */
-async function cmdSlot(client: LogiosClient, flags: GlobalFlags, arg?: string): Promise<void> {
+/** `hermes slot [n]` — one block (latest if `n` omitted) + its narration. */
+async function cmdSlot(client: HermesClient, flags: GlobalFlags, arg?: string): Promise<void> {
   let block: Block;
   if (arg === undefined) {
     block = await client.latestBlock();
@@ -120,8 +120,8 @@ async function cmdSlot(client: LogiosClient, flags: GlobalFlags, arg?: string): 
   }
 }
 
-/** `logios receipts [limit]` — recent signed decision receipts. */
-async function cmdReceipts(client: LogiosClient, flags: GlobalFlags, arg?: string): Promise<void> {
+/** `hermes receipts [limit]` — recent signed decision receipts. */
+async function cmdReceipts(client: HermesClient, flags: GlobalFlags, arg?: string): Promise<void> {
   const limit = arg ? parseSlot(arg) : 10;
   const receipts = await client.receipts(limit);
 
@@ -136,8 +136,8 @@ async function cmdReceipts(client: LogiosClient, flags: GlobalFlags, arg?: strin
   }
 }
 
-/** `logios explain [slot]` — plain-English narration of a slot (latest if omitted). */
-async function cmdExplain(client: LogiosClient, flags: GlobalFlags, arg?: string): Promise<void> {
+/** `hermes explain [slot]` — plain-English narration of a slot (latest if omitted). */
+async function cmdExplain(client: HermesClient, flags: GlobalFlags, arg?: string): Promise<void> {
   const slot = arg ? parseSlot(arg) : undefined;
   const ex = await client.explain(slot);
 
@@ -150,8 +150,8 @@ async function cmdExplain(client: LogiosClient, flags: GlobalFlags, arg?: string
   console.log(c.italic(wrapText(ex.narration, 76)));
 }
 
-/** `logios watch` — poll the latest slot every 2s and stream new ones. */
-async function cmdWatch(client: LogiosClient, flags: GlobalFlags): Promise<void> {
+/** `hermes watch` — poll the latest slot every 2s and stream new ones. */
+async function cmdWatch(client: HermesClient, flags: GlobalFlags): Promise<void> {
   if (flags.json) {
     console.error(c.yellow("watch streams to a TTY; --json is ignored"));
   }
@@ -188,19 +188,19 @@ async function cmdWatch(client: LogiosClient, flags: GlobalFlags): Promise<void>
 }
 
 /**
- * `logios faucet <wallet>` — request devnet SOL for a base58 wallet via the
+ * `hermes faucet <wallet>` — request devnet SOL for a base58 wallet via the
  * Solana JSON-RPC `requestAirdrop` method. This is the one command that hits
  * the live RPC rather than the read API.
  */
 async function cmdFaucet(flags: GlobalFlags, wallet?: string): Promise<void> {
   if (!wallet) {
-    throw new Error("usage: logios faucet <wallet-pubkey>");
+    throw new Error("usage: hermes faucet <wallet-pubkey>");
   }
   if (!isBase58(wallet) || wallet.length < 32 || wallet.length > 44) {
     throw new Error(`'${wallet}' does not look like a base58 Solana pubkey`);
   }
 
-  const rpc = process.env.LOGIOS_RPC ?? DEFAULT_RPC;
+  const rpc = process.env.HERMES_RPC ?? DEFAULT_RPC;
   const oneSol = 1_000_000_000; // lamports
 
   const res = await fetch(rpc, {
@@ -300,7 +300,7 @@ function isBase58(s: string): boolean {
 }
 
 function fail(err: unknown): never {
-  if (err instanceof LogiosApiError) {
+  if (err instanceof HermesApiError) {
     console.error(c.red(`API error (${err.status}) on ${err.path}: ${err.message}`));
   } else if (err instanceof Error) {
     console.error(c.red(`error: ${err.message}`));
@@ -316,10 +316,10 @@ function fail(err: unknown): never {
 
 function printHelp(): void {
   const { bold, cyan, dim, magenta } = c;
-  console.log(`${bold(magenta("logios"))} ${dim("v" + PKG_VERSION)} — explore the chain that writes itself
+  console.log(`${bold(magenta("hermes"))} ${dim("v" + PKG_VERSION)} — explore the chain that writes itself
 
 ${bold("USAGE")}
-  logios <command> [args] [flags]
+  hermes <command> [args] [flags]
 
 ${bold("COMMANDS")}
   ${cyan("status")}            Network counters, agent status, and the latest slot
@@ -336,16 +336,16 @@ ${bold("FLAGS")}
   ${dim("-V, --version")}     Print version
 
 ${bold("ENV")}
-  ${dim("LOGIOS_RPC")}        Solana RPC for faucet (default ${DEFAULT_RPC})
+  ${dim("HERMES_RPC")}        Solana RPC for faucet (default ${DEFAULT_RPC})
   ${dim("NO_COLOR")}          Disable colored output
 
 ${bold("EXAMPLES")}
-  logios status
-  logios slot
-  logios slot 4542500
-  logios explain 4542500
-  logios receipts 5 --json
-  logios watch
-  logios faucet 9KdSJ4jDeG8YaWfAhazQTWgsQHX7UHZPtF6bkYS6krFM
+  hermes status
+  hermes slot
+  hermes slot 4542500
+  hermes explain 4542500
+  hermes receipts 5 --json
+  hermes watch
+  hermes faucet 9KdSJ4jDeG8YaWfAhazQTWgsQHX7UHZPtF6bkYS6krFM
 `);
 }

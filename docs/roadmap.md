@@ -1,11 +1,11 @@
 # Roadmap
 
-Logios is pre-1.0 and devnet-only. Terms are Solana-native throughout: slots,
+Hermes is pre-1.0 and devnet-only. Terms are Solana-native throughout: slots,
 epochs, compute units, lamports, leaders.
 
 ## Shipped
 
-- [x] `logios-primitives` — base58 types; slot / epoch / lamport / compute-unit
+- [x] `hermes-primitives` — base58 types; slot / epoch / lamport / compute-unit
   units and constants.
 - [x] SVM / Sealevel executor with per-slot compute-budget metering (48,000,000
   CU cap).
@@ -32,7 +32,7 @@ epochs, compute units, lamports, leaders.
 
 ## Out of scope (for now)
 
-- Mainnet. Logios is a research system; there is no mainnet target date.
+- Mainnet. Hermes is a research system; there is no mainnet target date.
 - Defending against a compromised leader signing key. The key is a trusted
   component on devnet.
 - An economic model for $HERMES. The token confers no rights and no value today.

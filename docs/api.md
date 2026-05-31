@@ -1,6 +1,6 @@
 # Public API reference
 
-The Logios read API is served at `https://hermes-labs.xyz/v1`. It is read-only,
+The Hermes read API is served at `https://hermes-labs.xyz/v1`. It is read-only,
 unauthenticated, and rate-limited per IP. All responses are JSON. Every hash,
 pubkey, and signature is **base58**.
 

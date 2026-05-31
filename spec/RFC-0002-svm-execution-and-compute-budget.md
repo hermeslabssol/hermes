@@ -1,12 +1,12 @@
 # RFC-0002: SVM execution and the compute budget
 
 - **Status:** Accepted
-- **Implemented in:** `crates/logios-runtime`
+- **Implemented in:** `crates/hermes-runtime`
 - **Author:** Niko Vasilakis
 
 ## Summary
 
-Specify the Logios execution environment: the SVM (Sealevel) model of accounts
+Specify the Hermes execution environment: the SVM (Sealevel) model of accounts
 and programs, how instructions are metered in compute units, and the per-slot
 compute budget that bounds a sealed slot at 48,000,000 CU.
 
@@ -33,7 +33,7 @@ slot.
 
 **Metering.** Every instruction consumes compute units. The runtime accumulates
 CU per instruction, per transaction, and per batch. The constants live in
-`logios-primitives`:
+`hermes-primitives`:
 
 - `MAX_COMPUTE_UNITS_PER_SLOT = 48_000_000` — the per-slot ceiling.
 

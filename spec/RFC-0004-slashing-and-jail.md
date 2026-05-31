@@ -1,7 +1,7 @@
 # RFC-0004: Slashing and jail
 
 - **Status:** Accepted
-- **Implemented in:** `crates/logios-consensus`
+- **Implemented in:** `crates/hermes-consensus`
 - **Author:** Aris Lefebvre
 
 ## Summary
@@ -40,7 +40,7 @@ v0.5.0.
 offending leader and records the slash with a reference to the proof.
 
 **Jail.** A slashed leader is jailed: removed from slot production for a fixed
-number of epochs. The jail counter is tracked in epochs (`logios-primitives`
+number of epochs. The jail counter is tracked in epochs (`hermes-primitives`
 `Epoch`). `GET /v1/leader` exposes current jail status. Release is automatic
 when the jail epoch count elapses; there is no manual unjail in this RFC.
 

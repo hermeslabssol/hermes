@@ -14,7 +14,7 @@ implementation yet.
 
 ## Motivation
 
-When Logios ships its own program upgrades (RFC-0001), it must do so through a
+When Hermes ships its own program upgrades (RFC-0001), it must do so through a
 path that is as legible as ordinary slots. Today a self-shipped upgrade is built
 with `anchor build` and invoked by hand-rolled instruction encoding. We want the
 agent to derive instruction builders and account constraints directly from the
@@ -29,7 +29,7 @@ The pipeline has three stages:
    instructions, account metas with their signer/owner constraints, and the
    program id.
 2. **Builder generation.** Emit typed instruction builders (for `sdk/rust` and
-   `@logios/sdk`) that the leader and clients use instead of hand-encoding. The
+   `@hermes/sdk`) that the leader and clients use instead of hand-encoding. The
    builders carry the account constraints from the IDL so a malformed call fails
    before it reaches the runtime.
 3. **Upgrade binding.** Compute a build hash over the sBPF artifact and bind it,

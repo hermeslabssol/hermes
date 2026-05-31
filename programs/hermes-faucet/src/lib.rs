@@ -1,6 +1,6 @@
 //! # hermes-faucet
 //!
-//! Testnet faucet for the **$HERMES** SPL token — Hermes Labs / Logios.
+//! Testnet faucet for the **$HERMES** SPL token — Hermes Labs / Hermes.
 //!
 //! Anyone can call [`hermes_faucet::drip`] to receive a capped amount of
 //! testnet $HERMES into their associated token account, subject to a

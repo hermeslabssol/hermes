@@ -1,15 +1,15 @@
 [package]
-name = "logios-client"
-description = "Async Rust client for the Logios read API — the Solana-native chain that writes itself. Slots, blocks, decision receipts, agent status, and plain-English slot narration."
+name = "hermes-client"
+description = "Async Rust client for the Hermes read API — the Solana-native chain that writes itself. Slots, blocks, decision receipts, agent status, and plain-English slot narration."
 version = "0.5.0"
 edition = "2021"
 rust-version = "1.75"
 license = "Apache-2.0"
 authors = ["Hermes Labs <dev@hermes-labs.xyz>"]
-repository = "https://github.com/hermeslabssol/logios"
+repository = "https://github.com/hermeslabssol/hermes"
 homepage = "https://hermes-labs.xyz"
-documentation = "https://docs.rs/logios-client"
-keywords = ["logios", "solana", "svm", "sealevel", "client"]
+documentation = "https://docs.rs/hermes-client"
+keywords = ["hermes", "solana", "svm", "sealevel", "client"]
 categories = ["api-bindings", "cryptography::cryptocurrencies"]
 readme = "README.md"
 

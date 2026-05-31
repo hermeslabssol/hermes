@@ -1,0 +1,28 @@
+[package]
+name = "hermes-consensus"
+description = "Single-leader slot production, Tower-BFT vote tracking (WIP), and the Hermes slashing engine."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+hermes-primitives.workspace = true
+hermes-runtime.workspace = true
+hermes-ledger.workspace = true
+thiserror.workspace = true
+serde = { workspace = true, optional = true }
+sha2.workspace = true
+
+[features]
+default = ["serde"]
+serde = ["dep:serde", "hermes-primitives/serde", "hermes-ledger/serde"]
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"

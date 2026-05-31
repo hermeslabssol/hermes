@@ -1,4 +1,4 @@
-# Code owners for Logios.
+# Code owners for Hermes.
 #
 # Review from the listed owner is required for any PR touching a matched path
 # (see CONTRIBUTING.md). Last matching pattern wins.
@@ -13,7 +13,7 @@
 *                           @hermeslabssol
 
 # Consensus is safety-critical: lead must review.
-/crates/logios-consensus/   @hermeslabssol
+/crates/hermes-consensus/   @hermeslabssol
 
 # On-chain Anchor programs.
 /programs/                  @hermeslabssol

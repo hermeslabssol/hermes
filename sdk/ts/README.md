@@ -1,13 +1,13 @@
-# @logios/sdk
+# @hermes/sdk
 
-TypeScript client for the **Logios** read API — the Solana-native chain that writes itself.
+TypeScript client for the **Hermes** read API — the Solana-native chain that writes itself.
 
-Logios runs an SVM (Sealevel) runtime where every slot is authored by an autonomous agent that emits a signed decision receipt. This SDK gives you typed, promise-based access to its public `/v1` endpoints — stats, blocks, receipts, the agent's live status, logs, self-shipped updates, the roadmap, and plain-English slot narration.
+Hermes runs an SVM (Sealevel) runtime where every slot is authored by an autonomous agent that emits a signed decision receipt. This SDK gives you typed, promise-based access to its public `/v1` endpoints — stats, blocks, receipts, the agent's live status, logs, self-shipped updates, the roadmap, and plain-English slot narration.
 
 Brand: **Hermes Labs** · API base: `https://hermes-labs.xyz`
 
 ```
-npm install @logios/sdk
+npm install @hermes/sdk
 ```
 
 Works on Node 18+ and modern browsers. The only runtime dependency is [`cross-fetch`](https://www.npmjs.com/package/cross-fetch) (a thin polyfill that resolves to the platform `fetch`).
@@ -15,15 +15,15 @@ Works on Node 18+ and modern browsers. The only runtime dependency is [`cross-fe
 ## Quick start
 
 ```ts
-import { LogiosClient } from "@logios/sdk";
+import { HermesClient } from "@hermes/sdk";
 
-const logios = new LogiosClient(); // defaults to https://hermes-labs.xyz
+const hermes = new HermesClient(); // defaults to https://hermes-labs.xyz
 
-const stats = await logios.stats();
+const stats = await hermes.stats();
 console.log(`height ${stats.blockHeight} · ${stats.commits} commits · ${stats.tps} tps`);
 
-const block = await logios.latestBlock();
-const { narration } = await logios.explain(block.slot);
+const block = await hermes.latestBlock();
+const { narration } = await hermes.explain(block.slot);
 console.log(`#${block.slot} (${block.blockhash}): ${narration}`);
 ```
 
@@ -32,7 +32,7 @@ console.log(`#${block.slot} (${block.blockhash}): ${narration}`);
 Construct a client, optionally overriding the base URL or transport:
 
 ```ts
-const logios = new LogiosClient({
+const hermes = new HermesClient({
   baseUrl: "https://hermes-labs.xyz", // default
   timeoutMs: 15_000,                  // per-request abort timeout (0 to disable)
   headers: { "x-app": "my-explorer" },
@@ -40,7 +40,7 @@ const logios = new LogiosClient({
 });
 
 // Shorthand: pass a base URL string directly.
-const local = new LogiosClient("http://localhost:8787");
+const local = new HermesClient("http://localhost:8787");
 ```
 
 | Method | Endpoint | Returns |
@@ -62,7 +62,7 @@ const local = new LogiosClient("http://localhost:8787");
 Everything is Solana-flavoured — base58 strings, slots, lamports, compute units. The SDK normalizes the API's `snake_case` wire shape into `camelCase` and renames a couple of fields to match Solana terminology (the wire `number` becomes `slot`; a receipt's `hash` becomes `signature`).
 
 ```ts
-import type { Block, Receipt, Stats, Explanation } from "@logios/sdk";
+import type { Block, Receipt, Stats, Explanation } from "@hermes/sdk";
 
 interface Block {
   slot: number;          // wire: number
@@ -76,15 +76,15 @@ interface Block {
 
 ### Errors
 
-Any non-2xx response, parse failure, or network error throws a `LogiosApiError`:
+Any non-2xx response, parse failure, or network error throws a `HermesApiError`:
 
 ```ts
-import { LogiosApiError } from "@logios/sdk";
+import { HermesApiError } from "@hermes/sdk";
 
 try {
-  await logios.stats();
+  await hermes.stats();
 } catch (err) {
-  if (err instanceof LogiosApiError) {
+  if (err instanceof HermesApiError) {
     console.error(err.status, err.path, err.body); // 0 status === transport failure
   }
 }

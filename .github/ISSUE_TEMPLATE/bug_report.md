@@ -32,18 +32,18 @@ assignees: []
 
 ## Affected component
 
-- [ ] `logios-primitives`
-- [ ] `logios-runtime`
-- [ ] `logios-consensus`
-- [ ] `logios-ledger`
+- [ ] `hermes-primitives`
+- [ ] `hermes-runtime`
+- [ ] `hermes-consensus`
+- [ ] `hermes-ledger`
 - [ ] `receipt-registry` / `hermes-faucet` (programs)
-- [ ] `@logios/sdk` (TS) / `logios-client` (Rust) / CLI
+- [ ] `@hermes/sdk` (TS) / `hermes-client` (Rust) / CLI
 - [ ] `/v1` API
 - [ ] docs / other
 
 ## Environment
 
-- Logios version / commit:
+- Hermes version / commit:
 - Rust version (`rustc --version`):
 - OS:
 - Anchor / Solana CLI version (if relevant):

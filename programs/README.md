@@ -1,7 +1,7 @@
-# Logios on-chain programs — Hermes Labs
+# Hermes on-chain programs — Hermes Labs
 
-Two Anchor (Solana / SVM) programs that back **Logios, the chain that writes
-itself**. Logios authors every slot with an autonomous agent and signs a
+Two Anchor (Solana / SVM) programs that back **Hermes, the chain that writes
+itself**. Hermes authors every slot with an autonomous agent and signs a
 decision receipt; these programs let the agent anchor those receipts on-chain
 and let testers obtain the project's $HERMES SPL token.
 
@@ -12,7 +12,7 @@ and let testers obtain the project's $HERMES SPL token.
 
 ## `receipt-registry`
 
-For every slot, the Logios agent commits a `Receipt` PDA describing the block it
+For every slot, the Hermes agent commits a `Receipt` PDA describing the block it
 authored: the slot blockhash, transaction count, compute units consumed, and a
 SHA-256 commitment to its natural-language narration of the decision. A
 singleton `RegistryConfig` PDA names the agent authority and tracks the slot
@@ -20,7 +20,7 @@ watermark + receipt count.
 
 Instructions:
 
-- `initialize(authority)` — create the config and bind the Logios agent key.
+- `initialize(authority)` — create the config and bind the Hermes agent key.
 - `commit_receipt(slot, blockhash, txns, compute_units, narration_hash)` —
   anchor one receipt. Only the registry authority may call it; slots must be
   strictly monotonic; reported compute units are capped at the per-slot Sealevel
