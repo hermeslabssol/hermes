@@ -90,3 +90,5 @@ _Credits: hermeslabssol (primitives, leader loop)._
 [0.3.0]: https://github.com/hermeslabssol/logios/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/hermeslabssol/logios/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/hermeslabssol/logios/releases/tag/v0.1.0
+
+<!-- maintained 2026-06-06 -->
