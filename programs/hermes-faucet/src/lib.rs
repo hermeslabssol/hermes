@@ -1,9 +1,9 @@
 //! # hermes-faucet
 //!
-//! Testnet faucet for the **$HERMES** SPL token — Hermes Labs / Hermes.
+//! Testnet faucet for the **$LABS** SPL token — Hermes Labs / Hermes.
 //!
 //! Anyone can call [`hermes_faucet::drip`] to receive a capped amount of
-//! testnet $HERMES into their associated token account, subject to a
+//! testnet $LABS into their associated token account, subject to a
 //! per-wallet cooldown. The faucet mint authority is a PDA owned by this
 //! program, so the program itself signs the `mint_to` CPI into the SPL Token
 //! program — no off-chain signer required.
@@ -11,7 +11,7 @@
 //! ## Account model
 //!
 //! - [`FaucetConfig`] — singleton PDA (`seeds = [b"faucet"]`) holding the
-//!   $HERMES mint, the per-drip cap, and the cooldown length in slots. The
+//!   $LABS mint, the per-drip cap, and the cooldown length in slots. The
 //!   faucet mint-authority PDA is derived as `seeds = [b"mint_auth"]`.
 //! - [`Claim`] — one PDA per wallet (`seeds = [b"claim", wallet]`) recording the
 //!   slot of that wallet's last successful drip, used to enforce the cooldown.
@@ -32,7 +32,7 @@ declare_id!("AvPqHdw2HCY8RAEHVqpRiE98SaQENAuj6xjnH8nvWbF2");
 /// `30_000ms / 400ms = 75` slots.
 pub const DEFAULT_COOLDOWN_SLOTS: u64 = 75;
 
-/// Maximum $HERMES a single drip may mint (in base units / lamports of the
+/// Maximum $LABS a single drip may mint (in base units / lamports of the
 /// token's smallest denomination). Guards against draining the testnet supply.
 pub const MAX_DRIP_AMOUNT: u64 = 1_000_000_000;
 
@@ -40,7 +40,7 @@ pub const MAX_DRIP_AMOUNT: u64 = 1_000_000_000;
 pub mod hermes_faucet {
     use super::*;
 
-    /// Initialize the faucet config for a given $HERMES `mint`.
+    /// Initialize the faucet config for a given $LABS `mint`.
     ///
     /// The mint authority of `mint` is expected to be the program's
     /// `mint_authority` PDA (`seeds = [b"mint_auth"]`) so that [`drip`] can sign
@@ -67,7 +67,7 @@ pub mod hermes_faucet {
         Ok(())
     }
 
-    /// Drip `amount` testnet $HERMES to the caller, enforcing the per-wallet
+    /// Drip `amount` testnet $LABS to the caller, enforcing the per-wallet
     /// cooldown.
     ///
     /// On first claim the [`Claim`] PDA is created; on subsequent claims it must
@@ -146,7 +146,7 @@ pub struct InitializeFaucet<'info> {
     )]
     pub config: Account<'info, FaucetConfig>,
 
-    /// The $HERMES mint this faucet dispenses. Its mint authority should be the
+    /// The $LABS mint this faucet dispenses. Its mint authority should be the
     /// `mint_authority` PDA below.
     pub mint: Account<'info, Mint>,
 
@@ -172,7 +172,7 @@ pub struct Drip<'info> {
     )]
     pub config: Account<'info, FaucetConfig>,
 
-    /// The $HERMES mint. Must match `config.mint`.
+    /// The $LABS mint. Must match `config.mint`.
     #[account(mut)]
     pub mint: Account<'info, Mint>,
 
@@ -210,7 +210,7 @@ pub struct Drip<'info> {
 /// Singleton faucet configuration.
 #[account]
 pub struct FaucetConfig {
-    /// The $HERMES mint dispensed by this faucet.
+    /// The $LABS mint dispensed by this faucet.
     pub mint: Pubkey,
     /// Faucet admin authority.
     pub authority: Pubkey,

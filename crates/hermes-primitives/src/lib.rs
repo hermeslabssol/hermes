@@ -24,7 +24,7 @@
 //! * [`Slot`] — monotonic slot height; the unit of block production.
 //! * [`Epoch`] — a fixed number of slots; the unit of leader rotation and
 //!   validator jail accounting.
-//! * [`Lamports`] — the indivisible unit of $HERMES value
+//! * [`Lamports`] — the indivisible unit of $LABS value
 //!   ([`LAMPORTS_PER_SOL`] lamports to one whole token).
 //! * [`ComputeUnits`] — Sealevel execution cost, capped per slot at
 //!   [`MAX_COMPUTE_UNITS_PER_SLOT`].
@@ -49,7 +49,7 @@ pub use units::{ComputeUnits, Epoch, Lamports, Slot};
 /// aggregate. Mirrors Solana mainnet's block compute limit.
 pub const MAX_COMPUTE_UNITS_PER_SLOT: u64 = 48_000_000;
 
-/// Lamports in one whole token. $HERMES, like SOL, has nine decimals.
+/// Lamports in one whole token. $LABS, like SOL, has nine decimals.
 pub const LAMPORTS_PER_SOL: u64 = 1_000_000_000;
 
 /// Width, in bytes, of a [`Pubkey`] or [`Hash`].

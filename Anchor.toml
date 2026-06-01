@@ -1,7 +1,7 @@
 # Anchor workspace for the Hermes on-chain programs (Hermes Labs).
 #
 #   receipt-registry — anchors per-slot agent decision receipts.
-#   hermes-faucet    — testnet $HERMES SPL faucet with per-wallet cooldown.
+#   hermes-faucet    — testnet $LABS SPL faucet with per-wallet cooldown.
 
 [toolchain]
 anchor_version = "0.30.1"

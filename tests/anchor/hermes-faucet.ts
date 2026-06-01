@@ -15,7 +15,7 @@ import { assert } from "chai";
 /**
  * Tests for the Hermes `hermes-faucet` program.
  *
- * Covers: initialize, a successful $HERMES drip (balance + Claim state),
+ * Covers: initialize, a successful $LABS drip (balance + Claim state),
  * and the CooldownActive revert when dripping again too soon.
  */
 describe("hermes-faucet", () => {
@@ -50,7 +50,7 @@ describe("hermes-faucet", () => {
     )[0];
 
   before(async () => {
-    // Create the $HERMES mint with the payer as temporary mint authority...
+    // Create the $LABS mint with the payer as temporary mint authority...
     mint = await createMint(
       provider.connection,
       payer,
@@ -69,7 +69,7 @@ describe("hermes-faucet", () => {
     );
   });
 
-  it("initializes the faucet for the $HERMES mint", async () => {
+  it("initializes the faucet for the $LABS mint", async () => {
     await program.methods
       .initialize(new BN(COOLDOWN_SLOTS))
       .accounts({
@@ -86,7 +86,7 @@ describe("hermes-faucet", () => {
     assert.equal(config.cooldownSlots.toNumber(), COOLDOWN_SLOTS);
   });
 
-  it("drips $HERMES and records the claim", async () => {
+  it("drips $LABS and records the claim", async () => {
     const ata = await getOrCreateAssociatedTokenAccount(
       provider.connection,
       payer,

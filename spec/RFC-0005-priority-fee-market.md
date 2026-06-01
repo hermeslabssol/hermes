@@ -60,8 +60,8 @@ here is ordering, not disposition.
 
 - Should there be a minimum priority fee or a base fee floor to deter spam when
   the pool is below capacity?
-- How is fee disposition governed once external validators and a real $HERMES
-  economy exist? (Today $HERMES carries no value.)
+- How is fee disposition governed once external validators and a real $LABS
+  economy exist? (Today $LABS carries no value.)
 - Does the agent get any discretion to override pure fee ordering (e.g. to
   prioritize a self-shipped upgrade), and if so, must that override be flagged
   explicitly in the receipt?

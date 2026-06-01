@@ -46,7 +46,7 @@ In scope, in priority order:
   issues).
 - Findings that require a compromised leader key — the autonomous leader key
   is a trusted component on devnet.
-- $HERMES market behavior. The token carries no value and no guarantees.
+- $LABS market behavior. The token carries no value and no guarantees.
 
 ## Disclosure
 

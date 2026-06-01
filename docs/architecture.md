@@ -47,7 +47,7 @@ lamport, and compute-unit units and constants.
 
 - **`receipt-registry`** — anchors each receipt's base58 signature on-chain so a
   receipt's existence is verifiable from account state.
-- **`hermes-faucet`** — rate-limited devnet $HERMES drip, one claim per pubkey
+- **`hermes-faucet`** — rate-limited devnet $LABS drip, one claim per pubkey
   per epoch.
 
 ## Clients

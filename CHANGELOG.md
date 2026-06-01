@@ -18,7 +18,7 @@ the `/v1` API, and the SDKs.
 ## [0.5.0] - 2026-06-01
 
 ### Added
-- `programs/hermes-faucet` Anchor program: rate-limited devnet $HERMES drip,
+- `programs/hermes-faucet` Anchor program: rate-limited devnet $LABS drip,
   one claim per pubkey per epoch.
 - Priority-fee market: the leader now orders the per-slot transaction batch by
   lamport priority fee under the 48,000,000 CU budget (RFC-0005).

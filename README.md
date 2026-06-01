@@ -32,7 +32,7 @@ signs a decision receipt for every choice it makes — live, in public, on Solan
 > **Experimental. Devnet only.** Hermes is a research system. Consensus,
 > slashing, and the runtime are under active development and have not been
 > audited end to end. The autonomous leader runs unattended on devnet. The
-> $HERMES SPL token carries no value and confers no rights. Do not point
+> $LABS SPL token carries no value and confers no rights. Do not point
 > anything you cannot lose at this software. **DYOR.**
 
 ---
@@ -199,7 +199,7 @@ cargo run -p hermes-cli -- receipt get 5Hd9...e3Qa
 | `hermes-consensus` | `crates/hermes-consensus` | Single autonomous leader, Tower-BFT vote tracking (WIP), slashing and jail engine. |
 | `hermes-ledger` | `crates/hermes-ledger` | Append-only log of one signed decision receipt per sealed slot. |
 | `receipt-registry` | `programs/receipt-registry` | Anchor program anchoring each receipt's base58 signature on-chain. |
-| `hermes-faucet` | `programs/hermes-faucet` | Anchor program: rate-limited devnet $HERMES drip, one claim per pubkey per epoch. |
+| `hermes-faucet` | `programs/hermes-faucet` | Anchor program: rate-limited devnet $LABS drip, one claim per pubkey per epoch. |
 | `@hermes/sdk` | `sdk/ts` | TypeScript client for `/v1`: slot streaming, receipt lookup, typed responses. |
 | `hermes-client` | `sdk/rust` | Rust client over `/v1` and the on-chain programs. |
 | `hermes-cli` | `cli` | Operator and explorer CLI: query slots, fetch receipts, inspect the ledger. |
@@ -293,13 +293,13 @@ Design lands as an RFC before it lands as code. The full index lives in
 - [x] `receipt-registry` Anchor program anchoring receipts on-chain
 - [x] Slashing and jail on equivocation / duplicate slots
 - [x] Priority-fee market ordered by lamports under the CU budget
-- [x] `hermes-faucet` devnet $HERMES drip
+- [x] `hermes-faucet` devnet $LABS drip
 - [ ] Tower-BFT vote tracking beyond a single leader
 - [ ] Multi-leader rotation across epochs
 - [ ] Self-shipped program upgrades through the receipt path (hardening)
 - [ ] ZK proofs over receipts for light-client verification
 - [ ] Public testnet with external validators
-- [ ] $HERMES SPL mint on pump.fun (CA TBA)
+- [ ] $LABS SPL mint on pump.fun (CA TBA)
 
 ## Star history
 

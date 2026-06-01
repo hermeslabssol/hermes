@@ -113,7 +113,7 @@ u64_newtype!(
 );
 
 u64_newtype!(
-    /// Lamports — the indivisible unit of $HERMES value. Priority fees are
+    /// Lamports — the indivisible unit of $LABS value. Priority fees are
     /// denominated in lamports.
     Lamports,
     "lamports"
