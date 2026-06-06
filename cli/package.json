@@ -44,3 +44,7 @@
     "typescript": "^5.4.5"
   }
 }
+
+# JSON output
+
+All commands accept `--json` for machine-readable output (used by CI and the dashboard).

@@ -37,3 +37,5 @@ npx @logios/cli status
 npx @logios/cli watch
 npx @logios/cli explain 4542500
 ```
+
+<!-- --json flag documented -->
